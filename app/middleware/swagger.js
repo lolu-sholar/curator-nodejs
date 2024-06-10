@@ -13,14 +13,14 @@ module.exports = {
 					version: '1.0.0'
 				},
 				servers: [
-					{
+					...(config.env().STAGE == 'dev' ? {
 						url: 'http://localhost:9000/',
 						description: 'Local development server'
-					},
+					} : 
 					{
 						url: config.env().LIVE_DOCS_URL,
 						description: 'Production server'
-					}
+					})
 				],
 				components: {
 					securitySchemes: {
