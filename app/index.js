@@ -14,5 +14,3 @@ agenda.jobs.sync()
 router.sync()
 // Start server
 server.run()
-
-module.exports = config.getApp()
