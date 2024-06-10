@@ -13,7 +13,7 @@ module.exports = {
 					version: '1.0.0'
 				},
 				servers: [
-					...(config.env().STAGE == 'dev' ? {
+					(config.env().STAGE == 'dev' ? {
 						url: config.env().LOCAL_DOCS_URL,
 						description: 'Local development server'
 					} : 
