@@ -44,8 +44,8 @@ module.exports = {
 
 		// Swagger page
 		config.getApp().use('/swagger', (req, res, next) => {
-		    swaggerDocument.host = req.get('host')
-		    req.swaggerDoc = swaggerDocument
+		    swaggerSpec.host = req.get('host')
+		    req.swaggerDoc = swaggerSpec
 		    next()
 		}, swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 			swaggerOptions: {
