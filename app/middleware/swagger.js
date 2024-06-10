@@ -14,7 +14,7 @@ module.exports = {
 				},
 				servers: [
 					...(config.env().STAGE == 'dev' ? {
-						url: 'http://localhost:9000/',
+						url: config.env().LOCAL_DOCS_URL,
 						description: 'Local development server'
 					} : 
 					{
