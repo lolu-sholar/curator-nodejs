@@ -1,0 +1,4 @@
+::1 - - [10/Jun/2024:05:57:50 +0000] "POST /api/auth/login HTTP/1.1" 400 34 "http://localhost:9000/swagger/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+::1 - - [10/Jun/2024:05:58:36 +0000] "POST /api/auth/login HTTP/1.1" 400 34 "http://localhost:9000/swagger/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+::1 - - [10/Jun/2024:05:58:56 +0000] "POST /api/auth/login HTTP/1.1" 400 34 "http://localhost:9000/swagger/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+::1 - - [10/Jun/2024:05:59:16 +0000] "POST /api/auth/login HTTP/1.1" 400 34 "http://localhost:9000/swagger/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
