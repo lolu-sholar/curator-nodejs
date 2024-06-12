@@ -1,4 +1,5 @@
-class ServiceResponse {
+// Base response
+class BaseResponse {
 	ok = 200
 	bad = 400
 	code
@@ -12,31 +13,39 @@ class ServiceResponse {
 		this.error = Boolean(options?.error)
 		this.data = options?.data
 
-		if (!this.error) {
+		// If there's no error, omit the error field. 
+		// Omit the data field if there's an error
+		if (!this.error)
 			delete this.error
-			delete this.code
-		}
+		else delete this.data
 
+		// Omit the ok and bad fields
 		delete this.ok
 		delete this.bad
 	}
 }
 
-class Rebuke extends ServiceResponse {
-	constructor(error = 'error', code) {
+// Error response
+class Rebuke extends BaseResponse {
+	constructor(error = 'Error', code) {
 		super({ error, code })
 	}
 }
 
-class Ok extends ServiceResponse {
+// Success response
+class Ok extends BaseResponse {
 	constructor(options) {
-		super(!['string', 'undefined'].includes(typeof options)
-			? (Array.isArray(options) 
-				? { data: options } 
-				: (options.hasOwnProperty('data') || options.hasOwnProperty('message'))
-					? { ...options } 
-					: { data: options }) 
-			: { message: options })
+		let config
+
+		if (!['string', 'undefined'].includes(typeof options)) {
+			if (Array.isArray(options))
+				config = { data: options }
+			else if (options.hasOwnProperty('data') || options.hasOwnProperty('message') || options.hasOwnProperty('code')) {
+				config = { ...options }
+			} else config = { data: options } 
+		} else config = { message: options }
+
+		super(config)
 	}
 }
 

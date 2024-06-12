@@ -4,6 +4,7 @@ const morgan = require('./morgan')
 const helmet = require('./helmet')
 const syntaxeIO = require('./syntaxeIO')
 const swagger = require('./swagger')
+const paginator = require('./paginator')
 const config = require('../manager/config')
 
 exports.sync = () => {
@@ -12,6 +13,7 @@ exports.sync = () => {
 	compression.sync()
 	morgan.sync()
 	helmet.sync()
+	paginator.sync()
 	syntaxeIO.sync()
 	swagger.sync()
 

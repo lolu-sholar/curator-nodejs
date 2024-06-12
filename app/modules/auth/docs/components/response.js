@@ -5,6 +5,9 @@
  *     OkResponseDto:
  *       type: object
  *       properties:
+ *         code:
+ *           type: number
+ *           description: Status code
  *         message:
  *           type: string
  *           description: Response message
@@ -12,12 +15,16 @@
  *           type: null
  *           description: Response data
  *       example:
+ *         code: 200
  *         message: Success
  *         data: null
  *         
  *     OkResponseRegisterDto:
  *       type: object
  *       properties:
+ *         code:
+ *           type: number
+ *           description: Status code
  *         message:
  *           type: string
  *           description: Response message
@@ -29,6 +36,7 @@
  *               type: string
  *               description: Registration token needed to verify email address
  *       example:
+ *         code: 200
  *         message: Success
  *         data:
  *           token: dG9rZW4tZGF0YQ==
@@ -36,6 +44,9 @@
  *     OkResponseLoginDto:
  *       type: object
  *       properties:
+ *         code:
+ *           type: number
+ *           description: Status code
  *         message:
  *           type: string
  *           description: Response message
@@ -59,6 +70,7 @@
  *               type: string
  *               description: Session id for client
  *       example:
+ *         code: 200
  *         message: Success
  *         data:
  *           name: John Wick

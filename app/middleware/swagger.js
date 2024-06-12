@@ -41,7 +41,7 @@ module.exports = {
 		}
 
 		const swaggerSpec = swaggerJsDoc(options)
-
+		
 		// Swagger page
 		config.getApp().use('/swagger', (req, res, next) => {
 		    swaggerSpec.host = req.get('host')

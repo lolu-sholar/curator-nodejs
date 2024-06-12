@@ -15,6 +15,7 @@
     "@hapi/joi": "^17.1.1",
     "agenda": "^5.0.0",
     "argon2": "^0.40.1",
+    "cloudinary": "^2.2.0",
     "compression": "^1.7.4",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.5",

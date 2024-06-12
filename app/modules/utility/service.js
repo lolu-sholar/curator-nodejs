@@ -1,25 +1,28 @@
 const { cipher } = require('../../utils')
 
-// Show hello message
-const hello = async(req, res) => res.json({ message: `Hello World! ${new Date()}` })
+class UtilityService {
+	constructor(){}
 
-// Encrypt/decrypt payload
-const transformPayload = async(req, res) => {
-	try {
-		const payload = req.body
-		const decrypt = req.query.hasOwnProperty('decrypt')
+	// Show hello message
+	async hello(req, res) {
+		res.json({ message: `Hello World! ${new Date()}` })
+	}
 
-		const value = cipher.encryptOrDecryptData(payload, decrypt)
+	// Encrypt/decrypt payload
+	async transformPayload(req, res) {
+		try {
+			const payload = req.body
+			const decrypt = req.query.hasOwnProperty('decrypt')
 
-		res.json({
-			data: value ?? '{}'
-		})
-	} catch(err) {
-		res.status(400).send(err.toString())
+			const value = cipher.encryptOrDecryptData(payload, decrypt)
+
+			res.json({
+				data: value ?? '{}'
+			})
+		} catch(err) {
+			res.status(400).send(err.toString())
+		}
 	}
 }
 
-module.exports = {
-	transformPayload,
-	hello
-}
+module.exports = new UtilityService()

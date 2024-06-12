@@ -1,4 +1,5 @@
 const crypto = require('crypto')
+const mongoose = require('mongoose')
 const config = require('../manager/config')
 
 // Generate code
@@ -28,6 +29,11 @@ exports.debug = (res, ...data) => {
 // Generate random uuid
 exports.uuid = () => {
 	return crypto.randomUUID()
+}
+
+// Convert id to object id
+exports.makeObjectId = (id) => {
+	return new mongoose.Types.ObjectId(id)
 }
 
 // Generate random uuid / clean
