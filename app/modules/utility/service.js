@@ -1,7 +1,6 @@
 const { cipher } = require('../../utils')
 const { Worker } = require('worker_threads')
 const path = require('path')
-const rawCategoriesData = require('./data/category/raw')
 const config = require('../../manager/config')
 
 class UtilityService {
@@ -33,6 +32,7 @@ class UtilityService {
 		try {
 			if (!config.env().RAW_BUILD_DATA_STATUS) {
 				const worker = new Worker(path.join(path.dirname(path.dirname(__dirname)), 'workers', 'buildCategories.js'))
+				const rawCategoriesData = require('./data/category/raw')
 
 				// Worker message and error handlers
 				worker.on('message', console.log)
