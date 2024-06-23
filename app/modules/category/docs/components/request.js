@@ -61,4 +61,25 @@
  *       example:
  *         categoryId: 66695e60801530a902538e8c
  *         email: john.wick@email.com
+ *         
+ *     SettleInvitationDto:
+ *       type: object
+ *       required:
+ *         - name
+ *         - password
+ *         - iv
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: Full name of user
+ *         password:
+ *           type: string
+ *           description: Password of user (minimum of 6 chars. and maximum of 30 chars.)
+ *         iv:
+ *           type: string
+ *           description: Invitation data sent to inbox
+ *       example:
+ *         name: John Wick
+ *         password: Password123456
+ *         iv: eyJhbGciOiJIUzI1NiIs...
  */

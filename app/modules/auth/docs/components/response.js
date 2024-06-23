@@ -77,4 +77,17 @@
  *           email: john.wick@email.com
  *           accessToken: dG9rZW4tZGF0YQ==
  *           clientSessionId: dG9rZW4tZGF0YQ==
+ *
+ *     RebukeResponseDto:
+ *       type: object
+ *       properties:
+ *         code:
+ *           type: number
+ *           description: Status code
+ *         message:
+ *           type: string
+ *           description: Response message
+ *       example:
+ *         code: 0
+ *         message: Example response message
  */

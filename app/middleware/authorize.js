@@ -8,7 +8,7 @@ const isAuthValid = async(req, res, next, hard) => {
 	// Check if hard authorization
 	if (hard) {
 		if (!claims)
-			return res.status(401).end('Unauthorized access.')
+			return res.status(401).send({ code: 401, message: 'Unauthorized access.' })
 	}
 
 	// Pass user object if valid

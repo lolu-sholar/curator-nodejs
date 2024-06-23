@@ -7,7 +7,6 @@ const interestService = require('../interest/service')
 const route = require('./route')
 const config = require('../../manager/config')
 const { dispatcher, types } = require('../../messaging')
-const rawCategoriesData = require('../utility/data/category/seed')
 
 class CategoryService {
 	constructor(){
@@ -46,8 +45,14 @@ class CategoryService {
 						description: 1,
 						photo: "$photo.optimized",
 						owner: {
-							_id: { $first: "$ownerInfo._id" },
-							name: { $first: "$ownerInfo.name" }
+							$cond: {
+								if: { $eq: [{ $size: "$ownerInfo" }, 0] },
+									then: null,
+								else: {
+									_id: { $first: "$ownerInfo._id" },
+									name: { $first: "$ownerInfo.name" }
+								}
+							}
 						},
 						noInterests: {
 							$size: '$catInterests'
@@ -266,17 +271,17 @@ class CategoryService {
 			const iv = await jtoken.verify(payload?.iv)
 			const ivData = cipher.encryptOrDecryptData(iv, true, ['iat','exp'])
 			if (!iv || !ivData || (ivData && ivData?.validInvitation != 'true'))
-				return new Issue({ code: 1, message: 'Invitation is invalid.' })
+				return new Rebuke({ code: 1, message: 'Invitation is invalid.' })
 
 			// Check invitation
 			const invitation = await CategoryInvitation.findById(ivData.ivId)
 			if (!invitation || (invitation && invitation.inviteAccepted))
-				return new Issue({ code: 1, message: 'Invitation is no longer valid.' })
+				return new Rebuke({ code: 1, message: 'Invitation is no longer valid.' })
 
 			// Get and check category
 			const category = await Category.findById(invitation.categoryId)
 			if (!category)
-				return new Issue({ code: 2, message: 'Category is no longer valid.' })
+				return new Rebuke({ code: 2, message: 'Category is no longer valid.' })
 
 			// Get and check user
 			let user = (await profileService.getUserByEmail(cipher.decrypt(invitation.inviteeEmail))).data
@@ -289,12 +294,12 @@ class CategoryService {
 					if (currentUser.get('email') == cipher.decrypt(invitation.inviteeEmail)) {
 						// Accept invitation
 						return await this.acceptAndSettleInvite(invitation, user, category)
-					} else return new Issue({ code: 6, message: 'Signed in user is not the invitee.' })
+					} else return new Rebuke({ code: 6, message: 'Signed in user is not the invitee.' })
 				} else {
 					if (user)
-						return new Issue({ code: 7, message: 'User must sign in to accept invite.' })
+						return new Rebuke({ code: 7, message: 'User must sign in to accept invite.' })
 					else {
-						return new Issue({
+						return new Rebuke({
 							code: 5,
 							message: 'Invitee does not exist. User should provide necessary details to create new account.',
 							data: {
@@ -314,8 +319,8 @@ class CategoryService {
 						if (currentUser.get('email') == cipher.decrypt(invitation.inviteeEmail)) {
 							// Accept invitation
 							return await this.acceptAndSettleInvite(invitation, user, category)
-						} else return new Issue({ code: 6, message: 'Signed in user is not the invitee.' })
-					} else return new Issue({ code: 7, message: 'User must sign in to accept invite.' })
+						} else return new Rebuke({ code: 6, message: 'Signed in user is not the invitee.' })
+					} else return new Rebuke({ code: 7, message: 'User must sign in to accept invite.' })
 				} else {
 					// Create new user
 					user = await authService.registerByInvitation({
@@ -326,7 +331,7 @@ class CategoryService {
 
 					// Check for error
 					if (user.error)
-						return new Issue({ code: 8, message: 'An error occurred when creating new user account.' })
+						return new Rebuke({ code: 8, message: 'An error occurred when creating new user account.' })
 
 					// Accept invitation
 					const opStatus = await this.acceptAndSettleInvite(invitation, user.data.account, category)
@@ -361,7 +366,7 @@ class CategoryService {
 			// Get and check relationship
 			const relationship = await CategoryFollower.findOne(mainQuery)
 			if (relationship)
-				return new Issue({ code: 3, message: 'User already follows category.' })
+				return new Rebuke({ code: 3, message: 'User already follows category.' })
 
 			// Create and save relationship
 			const follower = new CategoryFollower(mainQuery)
@@ -369,7 +374,7 @@ class CategoryService {
 
 			// Check if saved
 			if (!status?._id)
-				return new Issue({ code: 4, message: 'User could not be linked to category.' })
+				return new Rebuke({ code: 4, message: 'User could not be linked to category.' })
 
 			// Get and check inviter
 			const inviter = await profileService.getUserById(String(invitation.inviterId))
@@ -410,6 +415,8 @@ class CategoryService {
 
 			// Check if data
 			if (!category || !interest) {
+				const rawCategoriesData = require('../utility/data/category/seed')
+				console.log(rawCategoriesData.length)
 				const categories = []
 				const interests = []
 

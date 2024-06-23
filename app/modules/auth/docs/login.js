@@ -20,6 +20,12 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/OkResponseLoginDto'
+ *       400:
+ *         description:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/RebukeResponseDto'
  *       500:
  *         description: Internal server error
  *

@@ -1,18 +1,19 @@
 /**
  * @swagger
  * tags:
- *   name: Auth
- *   description: Authentication API
- * /api/auth/reset-password:
- *   post:
- *     summary: Reset user password
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/AuthResetPasswordDto'
+ *   name: Category
+ *   description: Category API
+ * /api/category/activate-invitation:
+ *   get:
+ *     summary: Get status of invitation and further possible instructions
+ *     tags: [Category]
+ *     parameters:
+ *       - in: query
+ *         name: iv
+ *         schema:
+ *           type: string
+ *         description: Invitation data sent to inbox
+ *         required: true
  *     responses:
  *       200:
  *         description: 

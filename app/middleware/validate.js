@@ -12,7 +12,7 @@ module.exports = {
 
 			// Check for error
 			if (error)
-				return res.status(400).send(error.details[0].message)
+				return res.status(400).send({ code: 400, message: error.details[0].message })
 
 			// Add data to request body
 			req.body = data

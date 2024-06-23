@@ -1,18 +1,18 @@
 /**
  * @swagger
  * tags:
- *   name: Auth
- *   description: Authentication API
- * /api/auth/reset-password:
+ *   name: Category
+ *   description: Category API
+ * /api/category/settle-invitation:
  *   post:
- *     summary: Reset user password
- *     tags: [Auth]
+ *     summary: Settle invitation
+ *     tags: [Category]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AuthResetPasswordDto'
+ *             $ref: '#/components/schemas/SettleInvitationDto'
  *     responses:
  *       200:
  *         description: 

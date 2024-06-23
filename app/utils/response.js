@@ -2,6 +2,7 @@
 class BaseResponse {
 	ok = 200
 	bad = 400
+	unkown = 0
 	code
 	message
 	error
@@ -17,11 +18,16 @@ class BaseResponse {
 		// Omit the data field if there's an error
 		if (!this.error)
 			delete this.error
-		else delete this.data
+		else {
+			delete this.data
+			if (typeof this.error === 'string')
+				this.error = { code: this.unkown, message: this.error }
+		}
 
 		// Omit the ok and bad fields
 		delete this.ok
 		delete this.bad
+		delete this.unkown
 	}
 }
 
@@ -49,12 +55,4 @@ class Ok extends BaseResponse {
 	}
 }
 
-// Issue response
-class Issue extends Ok {
-	constructor(options) {
-		options.code = options.code ?? 0
-		super(options)
-	}
-}
-
-module.exports = { Ok, Rebuke, Issue }
+module.exports = { Ok, Rebuke }
