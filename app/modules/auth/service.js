@@ -72,6 +72,55 @@ class AuthService {
 		}
 	}
 
+	// Registration service / by category or interest invitation
+	async registerByInvitation(payload) {
+		try {
+			const user = new User({
+				email: cipher.encrypt(payload.email),
+				name: payload.name,
+				password: await argon2.hash(payload.password),
+				userVerified: true
+			})
+			const opStatus = await user.save()
+
+			if (!opStatus?.id)
+				return new Rebuke('User account could not be created.')
+
+			// Notification service
+			dispatcher.announce({
+				type: types.NotificationType.Email,
+				email: {
+					to: payload.email,
+					message: `You just created a Xircle account and we signed you in right away. We hope you enjoy your time with us.`,
+					subject: 'Welcome to Xircle'
+				}
+			})
+
+			const clientSessionId = helpers.uuid()
+
+			const token = jtoken.create({
+				email: cipher.encrypt(payload.email),
+				id: cipher.encrypt(String(user._id)),
+				cid: cipher.encrypt(clientSessionId)
+			}, '24h')
+
+			return new Ok({
+				data: {
+					account: user,
+					login: {
+						name: user.name,
+						email: payload.email,
+						accessToken: token,
+						accountId: user._id,
+						clientSessionId
+					}
+				}
+			})
+		} catch(err) {
+			return new Rebuke('Error creating user account.')
+		}
+	}
+
 	// Verify email address
 	async verifyEmailAddress(payload) {
 		try {

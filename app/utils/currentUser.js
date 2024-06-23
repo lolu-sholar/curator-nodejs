@@ -7,8 +7,13 @@ module.exports = {
 		currentUser = user
 	},
 	get(key) {
-		if (key)
-			return ((key == 'oid' ? new mongoose.Types.ObjectId(currentUser['id']) : currentUser[key]) ?? null)
-		else return currentUser
+		if (currentUser) {
+			if (key)
+				return ((key == 'oid' ? new mongoose.Types.ObjectId(currentUser['id']) : currentUser[key]) ?? null)
+			else return currentUser
+		} else return null 
+	},
+	isUser(id) {
+		return (String(id) == currentUser['id'])
 	}
 }

@@ -59,6 +59,37 @@ class CategoryController {
 			res.sendStatus(500)
 		}
 	}
+
+	// Process invite
+	async processInvite(req, res) {
+		try {
+			const status = await service.processInvitation(req.query)
+
+			if (status.error)
+				return res.status(status.code).send(status.message)
+
+			res.json(status)
+		} catch {
+			res.sendStatus(500)
+		}
+	}
+
+	// Settle invitation
+	async settleInvitation(req, res) {
+		try {
+			const status = await service.processInvitation({
+				...req.body,
+				authByInvitation: true
+			})
+
+			if (status.error)
+				return res.status(status.code).send(status.message)
+
+			res.json(status)
+		} catch {
+			res.sendStatus(500)
+		}
+	}
 }
 
 module.exports = new CategoryController()

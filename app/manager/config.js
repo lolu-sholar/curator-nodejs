@@ -13,6 +13,7 @@ const loadReplaceEnvironmentValues = () => {
 	// Adjust based on environment
 	if (process.env.STAGE != 'dev') {
 		process.env.MONGO_URI = process.env.MONGO_URI_LIVE
+		process.env.APP_URL = process.env.LIVE_DOCS_URL
 	}
 
 	// Pass environment values

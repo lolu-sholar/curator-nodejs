@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const CategoryImageSchema = new mongoose.Schema({
+const InterestImageSchema = new mongoose.Schema({
 	imageId: String,
 	url: String,
 	optimized: String,
@@ -10,17 +10,21 @@ const CategoryImageSchema = new mongoose.Schema({
 	authorUrl: String
 })
 
-const CategorySchema = new mongoose.Schema({
+const InterestSchema = new mongoose.Schema({
 	title: String,
 	description: String,
-	photo: CategoryImageSchema,
+	photo: InterestImageSchema,
 	public: {
 		type: Boolean,
 		default: true
+	},
+	categoryId: {
+		type: mongoose.ObjectId,
+		ref: 'category'
 	},
 	owner: mongoose.ObjectId || null,
 	system: Boolean,
 	seeded: Boolean
 }, { timestamps: true })
 
-module.exports = mongoose.model('category', CategorySchema)
+module.exports = mongoose.model('interest', InterestSchema)

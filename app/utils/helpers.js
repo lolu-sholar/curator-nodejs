@@ -33,7 +33,7 @@ exports.uuid = () => {
 
 // Convert id to object id
 exports.makeObjectId = (id) => {
-	return new mongoose.Types.ObjectId(id)
+	return new mongoose.Types.ObjectId(id ? String(id) : null)
 }
 
 // Generate random uuid / clean

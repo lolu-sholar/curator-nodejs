@@ -1,5 +1,6 @@
 module.exports = {
 	root: '/',
 	group: '/api/utility',
-	cipher: '/transform-payload'
+	cipher: '/transform-payload',
+	createSeedableCategories: '/create-seedable-categories',
 }

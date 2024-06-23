@@ -4,4 +4,6 @@ module.exports = {
 	create: '/create',
 	follow: '/follow',
 	invite: '/invite-to-follow',
+	processInvite: '/activate-invitation',
+	settleInvite: '/settle-invitation'
 }

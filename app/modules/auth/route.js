@@ -6,5 +6,5 @@ module.exports = {
 	resendVerificationCode: '/resend-verification-code',
 	forgotPassword: '/forgot-password',
 	resendPasswordResetCode: '/resend-reset-code',
-	resetPassword: '/reset-password',
+	resetPassword: '/reset-password'
 }

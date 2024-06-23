@@ -1,4 +1,5 @@
 const mailer = require('../../utils/mailer')
+const { Ok, Rebuke } = require('../../utils/response')
 
 class NotificationService {
 	constructor(){}
@@ -7,15 +8,12 @@ class NotificationService {
 	async sendMail(payload) {
 		try {
 			// Send mail
-			const status = await mailer.send({
+			await mailer.send({
 				to: [payload.email.to],
 				message: `<div>${payload.email.message}</div>`,
 				subject: payload.email.subject
 			})
-			
-			console.log('Mail status:', status)
 		} catch(err) {
-			console.error('Error sending mail:', err)
 			return new Rebuke('Error while sending mail.')
 		}
 	}

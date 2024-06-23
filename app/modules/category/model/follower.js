@@ -11,4 +11,4 @@ const CategoryFollowerSchema = new mongoose.Schema({
 	}
 }, { timestamps: true })
 
-exports.CategoryFollower = mongoose.model('categoryFollower', CategoryFollowerSchema)
+module.exports = mongoose.model('categoryFollower', CategoryFollowerSchema)

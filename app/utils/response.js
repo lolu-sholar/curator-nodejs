@@ -49,4 +49,12 @@ class Ok extends BaseResponse {
 	}
 }
 
-module.exports = { Ok, Rebuke }
+// Issue response
+class Issue extends Ok {
+	constructor(options) {
+		options.code = options.code ?? 0
+		super(options)
+	}
+}
+
+module.exports = { Ok, Rebuke, Issue }

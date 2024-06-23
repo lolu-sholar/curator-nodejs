@@ -1,4 +1,6 @@
 .vercel
 .env
 node_modules/
-log/
+log
+**/raw.js
+**/seed.js

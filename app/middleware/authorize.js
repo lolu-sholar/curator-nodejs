@@ -12,8 +12,7 @@ const isAuthValid = async(req, res, next, hard) => {
 	}
 
 	// Pass user object if valid
-	if (claims)
-		currentUser.set(cipher.encryptOrDecryptData(claims, true, ['iat', 'exp']))
+	currentUser.set(claims ? cipher.encryptOrDecryptData(claims, true, ['iat', 'exp']) : null)
 
 	next()
 }

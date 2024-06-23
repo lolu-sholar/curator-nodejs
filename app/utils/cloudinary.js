@@ -2,21 +2,21 @@ const cloudinary = require('cloudinary').v2;
 const config = require('../manager/config');
 
 // Initialize
-const init = () => {
+const init = (creds) => {
 	// Configuration
 	cloudinary.config({ 
-		cloud_name: config.env().CLOUDINARY_CLOUD_NAME, 
-		api_key: config.env().CLOUDINARY_API_KEY, 
-		api_secret: config.env().CLOUDINARY_API_SECRET,
+		cloud_name: (creds || config.env()).CLOUDINARY_CLOUD_NAME, 
+		api_key: (creds || config.env()).CLOUDINARY_API_KEY, 
+		api_secret: (creds || config.env()).CLOUDINARY_API_SECRET,
 		secure: true
 	})
 }
 
 // Upload
-const upload = async(data) => {
+const upload = async(data, creds) => {
 	try {
 		// Init cloudinary
-		init()
+		init(creds)
 
 		// Place data into array, if not already
 		data = Array.isArray(data) ? data : [data]
@@ -45,7 +45,8 @@ const uploadOperation = async(imageData, crop) => {
 		// Upload an image
 	  const uploadResult = await cloudinary.uploader.upload(imageData.data, {
 	  	resource_type: 'auto',
-	    public_id: imageData.id
+	    public_id: imageData.id,
+	    folder: imageData?.folder || ''
 	  })
 	  .catch((error) => console.log('Error uploading image to cloudinary', error))
 	  
@@ -75,7 +76,8 @@ const uploadOperation = async(imageData, crop) => {
 		}
 
 		return operationResult
-	} catch {
+	} catch (err) {
+		console.error(err)
 		return null
 	}
 }

@@ -13,6 +13,8 @@ exports.sync = () => {
 	config.getApp().use(route.group, router)
 
 	// Map route if dev
-	if (config.env().STAGE == 'dev')
+	if (config.env().STAGE == 'dev') {
 		router.post(route.cipher, service.transformPayload)
+		router.get(route.createSeedableCategories, service.createSeedableCategories)
+	}
 }
