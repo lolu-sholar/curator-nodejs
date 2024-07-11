@@ -28,6 +28,8 @@
  *                   type: string
  *                 name:
  *                   type: string 
+ *             isSystemOwned:
+ *               type: boolean
  *             createdAt:
  *               type: string
  *             photo:
@@ -46,6 +48,7 @@
  *           owner:
  *             _id: 66695e60801530a902538e8d
  *             name: John Wick
+ *           isSystemOwned: false
  *           createdAt: 2024-06-12T08:37:54.268Z
  *           photo: photo-url
  *           noInterests: 0

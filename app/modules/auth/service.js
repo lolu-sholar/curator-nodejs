@@ -2,6 +2,7 @@ const { cipher, jtoken, helpers, futureDate, env } = require('../../utils')
 const { Ok, Rebuke } = require('../../utils/response')
 const { User } = require('../profile/model/user')
 const argon2 = require('argon2')
+const queueService = require('../queue/service')
 const { dispatcher, types } = require('../../messaging')
 
 class AuthService {
@@ -86,6 +87,9 @@ class AuthService {
 			if (!opStatus?.id)
 				return new Rebuke('User account could not be created.')
 
+			// Create a general queue for user
+			queueService.createGeneralQueueForUser(user._id)
+
 			// Notification service
 			dispatcher.announce({
 				type: types.NotificationType.Email,
@@ -143,6 +147,9 @@ class AuthService {
 
 			if (!opStatus?.id)
 				return new Rebuke('Verification failed. Please try again.')
+
+			// Create a general queue for user
+			queueService.createGeneralQueueForUser(account._id)
 
 			// Notification service
 			dispatcher.announce({

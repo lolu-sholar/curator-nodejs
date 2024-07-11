@@ -1,6 +1,10 @@
 const routerAuth = require('./auth/router')
 const routerCategory = require('./category/router')
 const routerInterest = require('./interest/router')
+const routerCollection = require('./collection/router')
+const routerResource = require('./resource/router')
+const routerQueue = require('./queue/router')
+const routerPool = require('./pool/router')
 const routerProfile = require('./profile/router')
 const routerUtility = require('./utility/router')
 
@@ -8,6 +12,10 @@ exports.sync = () => {
 	routerAuth.sync()
 	routerCategory.sync()
 	routerInterest.sync()
+	routerCollection.sync()
+	routerResource.sync()
+	routerQueue.sync()
+	routerPool.sync()
 	routerProfile.sync()
 	routerUtility.sync()
 }

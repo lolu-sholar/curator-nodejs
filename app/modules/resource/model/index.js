@@ -1,0 +1,5 @@
+exports.Resource = require('./resource')
+exports.ResourceProbe = require('./resourceProbe')
+exports.ResourceLike = require('./resourceLike')
+exports.ResourceComment = require('./resourceComment')
+exports.ResourceCommentLike = require('./resourceCommentLike')

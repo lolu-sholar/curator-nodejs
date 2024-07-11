@@ -1,8 +1,8 @@
 const { cipher, jtoken, helpers, futureDate, env, cloudinary, currentUser } = require('../../utils')
-const { Ok, Issue, Rebuke } = require('../../utils/response')
+const { Ok, Rebuke } = require('../../utils/response')
 const { Category, CategoryFollower, CategoryInvitation } = require('./model')
-const profileService = require('../profile/service')
 const authService = require('../auth/service')
+const profileService = require('../profile/service')
 const interestService = require('../interest/service')
 const route = require('./route')
 const config = require('../../manager/config')
@@ -15,7 +15,7 @@ class CategoryService {
 	}
 
 	// Get category list
-	async getCategoryList() {
+	async getPublicCategoryList() {
 		try {
 			// Get list
 			const list = await Category.aggregate([
@@ -43,7 +43,7 @@ class CategoryService {
 				{ $project: {
 						title: 1,
 						description: 1,
-						photo: "$photo.optimized",
+						photo: "$photo.url",
 						owner: {
 							$cond: {
 								if: { $eq: [{ $size: "$ownerInfo" }, 0] },
@@ -74,7 +74,7 @@ class CategoryService {
 	// Create category
 	async createCategory(payload) {
 		try {
-			// Get category exists with title
+			// Get category with title
 			const categoryDuplicate = await Category.findOne({
 				title: payload.title
 			})
@@ -121,7 +121,16 @@ class CategoryService {
 		} catch(err) {
 			return new Rebuke('Error creating category: ' + err?.message)
 		}
-	}	
+	}
+
+	// Get one category
+	async findOne(condition) {
+		try {
+			return await Category.findOne(condition)
+		} catch {
+			return null
+		}
+	}
 
 	// Follow category
 	async followCategory(payload) {
@@ -171,7 +180,7 @@ class CategoryService {
 
 			return new Ok()
 		} catch(err) {
-			return new Rebuke('Error creating category: ' + err?.message)
+			return new Rebuke('Error following category: ' + err?.message)
 		}
 	}	
 
@@ -430,7 +439,7 @@ class CategoryService {
 						photo: {
 							imageId: c.image.imageId,
 							url: c.image.url,
-							optimized: c.image.optimized,
+							optimized: c.image.url,
 							format: c.image.format,
 							author: c.image.author,
 							authorUrl: c.image.authorUrl
@@ -449,7 +458,7 @@ class CategoryService {
 							photo: {
 								imageId: i.image.imageId,
 								url: i.image.url,
-								optimized: i.image.optimized,
+								optimized: i.image.url,
 								format: i.image.format,
 								author: i.image.author,
 								authorUrl: i.image.authorUrl

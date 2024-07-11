@@ -22,3 +22,7 @@ exports.authByInvitation = Joi.object({
   password: Joi.string().min(6).max(30).required(),
   iv: Joi.string().required()
 })
+
+exports.activateInvitation = Joi.object({
+  iv: Joi.string().required()
+})

@@ -28,7 +28,7 @@ const callback = async(req, res, next) => {
 		  // Hook to new send function
 		  res.send = function (response) {
 		  	// Get response data
-		  	let responseObject = JSON.parse(response),
+		  	let responseObject = typeof response === 'object' ? response : JSON.parse(response),
 		  			dataObject = responseObject?.data ?? responseObject
 
 		  	// Check if array

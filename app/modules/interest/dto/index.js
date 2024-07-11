@@ -4,7 +4,8 @@ exports.createInterest = Joi.object({
   title: Joi.string().required(),
   description: Joi.string().required(),
   public: Joi.string().valid('true', 'false').required(),
-  photo: Joi.string().dataUri().required()
+  photo: Joi.string().dataUri().required(),
+  categoryId: Joi.string().required()
 })
 
 exports.followInterest = Joi.object({
@@ -20,5 +21,13 @@ exports.inviteToFollow = Joi.object({
 exports.authByInvitation = Joi.object({
   name: Joi.string().required(),
   password: Joi.string().min(6).max(30).required(),
+  iv: Joi.string().required()
+})
+
+exports.getInterestsForCategory = Joi.object({
+  categoryId: Joi.string().required()
+})
+
+exports.activateInvitation = Joi.object({
   iv: Joi.string().required()
 })

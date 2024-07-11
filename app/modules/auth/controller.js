@@ -1,4 +1,5 @@
 const { cipher } = require('../../utils')
+const { FinalResponse } = require('../../utils/response')
 const service = require('./service')
 
 class AuthController {
@@ -9,10 +10,7 @@ class AuthController {
 		try {
 			const status = await service.userRegistration(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -23,10 +21,7 @@ class AuthController {
 		try {
 			const status = await service.verifyEmailAddress(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -37,10 +32,7 @@ class AuthController {
 		try {
 			const status = await service.resendVerificationCode(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -51,10 +43,7 @@ class AuthController {
 		try {
 			const status = await service.generatePasswordResetCode(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -65,10 +54,7 @@ class AuthController {
 		try {
 			const status = await service.signUserIn(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -79,10 +65,7 @@ class AuthController {
 		try {
 			const status = await service.resendPasswordResetCode(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -93,10 +76,7 @@ class AuthController {
 		try {
 			const status = await service.resetPassword(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}

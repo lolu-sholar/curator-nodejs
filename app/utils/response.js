@@ -2,7 +2,7 @@
 class BaseResponse {
 	ok = 200
 	bad = 400
-	unkown = 0
+	unknown = 0
 	code
 	message
 	error
@@ -20,14 +20,14 @@ class BaseResponse {
 			delete this.error
 		else {
 			delete this.data
-			if (typeof this.error === 'string')
-				this.error = { code: this.unkown, message: this.error }
+			if (typeof this.message === 'string')
+				this.message = { code: this.unknown, message: this.message }
 		}
 
 		// Omit the ok and bad fields
 		delete this.ok
 		delete this.bad
-		delete this.unkown
+		delete this.unknown
 	}
 }
 
@@ -55,4 +55,14 @@ class Ok extends BaseResponse {
 	}
 }
 
-module.exports = { Ok, Rebuke }
+// Final response
+class FinalResponse {
+	constructor(status, res) {
+		if (status.error)
+			return res.status(status.code).send(status.message)
+
+		return res.json(status)
+	}
+}
+
+module.exports = { Ok, Rebuke, FinalResponse }

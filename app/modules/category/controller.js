@@ -1,18 +1,16 @@
 const { cipher } = require('../../utils')
+const { FinalResponse } = require('../../utils/response')
 const service = require('./service')
 
 class CategoryController {
 	constructor(){}
 
-	// Get all category list
-	async getCategoryList(req, res) {
+	// Get all public category list
+	async getPublicCategoryList(req, res) {
 		try {
-			const status = await service.getCategoryList()
+			const status = await service.getPublicCategoryList()
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -23,10 +21,7 @@ class CategoryController {
 		try {
 			const status = await service.createCategory(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -37,10 +32,7 @@ class CategoryController {
 		try {
 			const status = await service.followCategory(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -51,10 +43,7 @@ class CategoryController {
 		try {
 			const status = await service.inviteToFollow(req.body)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -65,10 +54,7 @@ class CategoryController {
 		try {
 			const status = await service.processInvitation(req.query)
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}
@@ -82,10 +68,7 @@ class CategoryController {
 				authByInvitation: true
 			})
 
-			if (status.error)
-				return res.status(status.code).send(status.message)
-
-			res.json(status)
+			return new FinalResponse(status, res)
 		} catch {
 			res.sendStatus(500)
 		}

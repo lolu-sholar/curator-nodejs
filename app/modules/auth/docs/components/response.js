@@ -89,5 +89,5 @@
  *           description: Response message
  *       example:
  *         code: 0
- *         message: Example response message
+ *         message: Example message
  */

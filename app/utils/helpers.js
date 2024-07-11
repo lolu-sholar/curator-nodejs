@@ -31,6 +31,11 @@ exports.uuid = () => {
 	return crypto.randomUUID()
 }
 
+// Get if value is 'true'
+exports.isTrue = (data) => {
+	return (String(data) == 'true')
+}
+
 // Convert id to object id
 exports.makeObjectId = (id) => {
 	return new mongoose.Types.ObjectId(id ? String(id) : null)

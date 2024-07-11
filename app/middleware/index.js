@@ -1,4 +1,5 @@
 const expressJson = require('./expressJson')
+const cors = require('./cors')
 const compression = require('./compression')
 const morgan = require('./morgan')
 const helmet = require('./helmet')
@@ -10,6 +11,7 @@ const config = require('../manager/config')
 exports.sync = () => {
 	// Add middlewares
 	expressJson.sync()
+	cors.sync()
 	compression.sync()
 	morgan.sync()
 	helmet.sync()
